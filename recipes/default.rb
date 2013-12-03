@@ -20,15 +20,17 @@
 include_recipe "java"
 
 version = node[:jruby][:version]
+version_win = node[:jruby][:windows][:version]
 
 prefix =  node[:jruby][:install_path]
+prefix_win =  node[:jruby][:windows][:install_path]
 
 
 case node['platform_family']
   when "windows"
-    windows_package "jruby_windows_#{version}.exe" do
+    windows_package "jruby_windows_#{version_win}.exe" do
       action :install
-      source prefix
+      source prefix_win + "jruby_windows_#{version_win}.exe"
       installer_type :custom
       options "-q"
     end
